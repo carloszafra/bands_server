@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node build/src/index.js",
-    "postinstall": "tsc && move src/public build/src",
+    "postinstall": "tsc && mv -i -v src/public build/src",
     "ts:node": "ts-node src/index.ts",
     "dev": "nodemon"
   },
