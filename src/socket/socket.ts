@@ -13,7 +13,6 @@ import { createServer, Server } from 'http';
 var cors = require("cors");
 require("dotenv").config();
 import path from "path";
-import { router } from "../routes/auth"
 import errorMiddleware from "../middleware/error.middleware";
 
 
