@@ -1,35 +1,15 @@
-import express from "express";
-import path from "path";
-require("dotenv").config();
-import {Sockets} from "./socket/socket";
+import {SocketsServer} from "./socket/socket";
+import { AuthController } from "./controllers/auth.controller";
+import { UserController } from "./controllers/users.controller";
 
-const app = express();
-const socket = new Sockets();
+let app = new SocketsServer(
+    [
+        new AuthController(),
+        new UserController(),
+    ]
+).app;
 
-//node server
-const server = require("http").createServer(app);
-export const io = require("socket.io")(server);
-
-app.set("port", 3001);
-
-socket.Connect();
-
-// io.on("connection", (client: any) => {
-//    console.log("Client connected");
-//    client.on('message', (data: any) => { 
-//       console.log(data);
-
-//       io.emit("message", data);
-//    });
-//   client.on('disconnect', () => console.log("Client disconnected"));
-// })
+export { app };
 
 
 
-const publicPath = path.resolve(__dirname, "public");
-
-app.use(express.static(publicPath));
-
-server.listen(process.env.PORT, () => {
-   console.log(`Server on port ${process.env.PORT}`);
-});
